@@ -3,7 +3,7 @@
 	"description": "Media & attachment related optimization packed for WordPress Multisite like figuren.theater",
     "type": "wordpress-muplugin",
     "license": "GPL-2",
-    "version": "1.0.0",
+    "version": "1.0.1",
 	"autoload": {
 		"files": [
 			"inc/auto-featured-image/namespace.php",
@@ -36,7 +36,7 @@
 	"require": {
         "php": ">=7.1",
         "figuren-theater/ft-options": "^1",
-        "wpackagist-plugin/format-media-titles":"1.29",
+        "wpackagist-plugin/format-media-titles":"1.0.0",
         "wpackagist-plugin/image-source-control-isc":"2.8.0",
         "wpackagist-plugin/modern-images-wp":"1.1.0"
 	},
