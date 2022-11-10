@@ -1,0 +1,52 @@
+{
+	"name": "figuren-theater/ft-media",
+	"description": "Media & attachment related optimization packed for WordPress Multisite like figuren.theater",
+    "type": "wordpress-muplugin",
+    "license": "GPL-2",
+    "version": "1.0.0",
+	"autoload": {
+		"files": [
+			"inc/auto-featured-image/namespace.php",
+			"inc/format-media-titles/namespace.php",
+			"inc/image-optimization/namespace.php",
+			"inc/image-source-control-isc/namespace.php",
+			"inc/modern-images-wp/namespace.php",
+			"inc/namespace.php"
+		],
+        "classmap": [
+            "inc/"
+        ]
+	},
+	"authors": [
+		{
+			"name": "figuren.theater",
+			"email": "info@figuren.theater"
+		}
+	],
+	"repositories": [
+		{
+            "type": "git",
+            "url": "https://github.com/figuren-theater/ft-options"
+        },
+		{
+			"type": "composer",
+			"url" : "https://wpackagist.org"
+		}
+	],
+	"require": {
+        "php": ">=7.1",
+        "figuren-theater/ft-options": "^1",
+        "wpackagist-plugin/format-media-titles":"1.29",
+        "wpackagist-plugin/image-source-control-isc":"2.8.0",
+        "wpackagist-plugin/modern-images-wp":"1.1.0"
+	},
+    "extra": {
+        "altis": {
+            "install-overrides": [
+            	"wpackagist-plugin/format-media-titles",
+            	"wpackagist-plugin/image-source-control-isc",
+            	"wpackagist-plugin/modern-images-wp"
+            ]
+        }
+    }
+}
