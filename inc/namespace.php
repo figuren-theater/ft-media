@@ -7,6 +7,7 @@
 
 namespace Figuren_Theater\Media;
 
+use Altis;
 use function Altis\register_module;
 
 
