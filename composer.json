@@ -2,8 +2,13 @@
 	"name": "figuren-theater/ft-media",
 	"description": "Media & attachment related optimization packed for WordPress Multisite like figuren.theater",
     "type": "wordpress-muplugin",
-    "license": "GPL-2",
-    "version": "1.0.1",
+    "license": "GPL-3.0-or-later",
+	"authors": [
+		{
+			"name": "figuren.theater",
+			"email": "info@figuren.theater"
+		}
+	],
 	"autoload": {
 		"files": [
 			"inc/auto-featured-image/namespace.php",
@@ -17,12 +22,6 @@
             "inc/"
         ]
 	},
-	"authors": [
-		{
-			"name": "figuren.theater",
-			"email": "info@figuren.theater"
-		}
-	],
 	"repositories": [
 		{
             "type": "git",
