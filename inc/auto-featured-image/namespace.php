@@ -7,6 +7,8 @@
 
 namespace Figuren_Theater\Media\Auto_Featured_Image;
 
+use WP_Post;
+
 use function add_action;
 use function add_theme_support;
 use function get_children;
@@ -20,7 +22,7 @@ use function set_post_thumbnail;
  * @return void
  */
 function bootstrap() {
-	add_action( 'admin_init', __NAMESPACE__ . '\\load' );
+	add_action( 'init', __NAMESPACE__ . '\\load' );
 }
 
 function load() {
@@ -37,15 +39,32 @@ function load() {
 	// DISABLED
 	// add_action( 'the_post', __NAMESPACE__ . '\\auto_featured_image' );
 
+
 	// For new upcoming posts, leave them permanently
 	// add_action('save_post', __NAMESPACE__ . '\\auto_featured_image');
-	// 
-	// // Hooks added to set the thumbnail when publishing too.
-	add_action( 'publish_to_publish', __NAMESPACE__ . '\\auto_featured_image' );
-	add_action( 'new_to_publish', __NAMESPACE__ . '\\auto_featured_image' );
-	add_action( 'draft_to_publish', __NAMESPACE__ . '\\auto_featured_image' );
-	add_action( 'pending_to_publish', __NAMESPACE__ . '\\auto_featured_image' );
-	add_action( 'future_to_publish', __NAMESPACE__ . '\\auto_featured_image' );
+	
+	/**
+	 * Hooks added to set the thumbnail when publishing too.
+	 * 
+	 * An {old_status}_to_{new_status} action will execute 
+	 * when a post transitions from {old_status} to {new_status}. 
+	 * The action is accompanied by the $post object. 
+	 * 
+	 * In the add_action() function call, the action priority 
+	 * may be set between 0 and 20 (default is 10) ...
+	 * 
+	 * !!!
+	 * ... and it is necessary to specify the number of arguments
+	 * do_action() should pass to the callback function. 
+	 * 
+	 * @see https://codex.wordpress.org/Post_Status_Transitions#.7Bold_status.7D_to_.7Bnew_status.7D_Hook
+	 * !!!
+	 */
+	add_action( 'publish_to_publish', __NAMESPACE__ . '\\auto_featured_image', 1 );
+	add_action( 'new_to_publish', __NAMESPACE__ . '\\auto_featured_image', 1 );
+	add_action( 'draft_to_publish', __NAMESPACE__ . '\\auto_featured_image', 1 );
+	add_action( 'pending_to_publish', __NAMESPACE__ . '\\auto_featured_image', 1 );
+	add_action( 'future_to_publish', __NAMESPACE__ . '\\auto_featured_image', 1 );
 }
 
 
@@ -55,7 +74,7 @@ function load() {
  * @param object $post Post Object.
  * @link https://wordpress.org/plugins/easy-add-thumbnail/
  */
-function auto_featured_image( $post ) {
+function auto_featured_image( WP_Post $post ) : void {
 
 	// Do nothing if the post has already a featured image set.
 	if ( has_post_thumbnail( $post ) ) {
@@ -63,14 +82,14 @@ function auto_featured_image( $post ) {
 	}
 
 	// Get first attached image.
-	$args = array(
+	$args = [
 		'numberposts'    => 1,
 		'order'          => 'ASC', // DESC for the last image
 		'post_mime_type' => 'image',
 		'post_parent'    => $post->ID,
 		'post_status'    => null,
 		'post_type'      => 'attachment',
-	);
+	];
 	$attached_image = get_children( $args );
 
 	if ( $attached_image ) {
@@ -85,7 +104,7 @@ function auto_featured_image( $post ) {
 	$output = preg_match_all( '/wp:image {"id":[0-9]+/i', $post->post_content, $matches );
 
 	// If there are any image blocks ... 
-	if( ! $output ) {
+	if ( ! $output ) {
 		return;
 	}
 
@@ -97,4 +116,3 @@ function auto_featured_image( $post ) {
 
 	set_post_thumbnail( $post->ID, $first_img_id );
 }
-

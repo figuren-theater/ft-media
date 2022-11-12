@@ -24,14 +24,21 @@ function bootstrap() {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 	
-	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin' );
+	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 9 );
 }
 
 function load_plugin() {
 
 	require_once PLUGINPATH;
 
-	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
+	// unhook i18n
+	remove_action( 'plugins_loaded', 'fmt_localize_plugin' );
+
+	// Remove call to register_setting()
+	remove_action( 'admin_init', 'fmt_init' );
+
+	// Remove Submenu from 'Settings'
+	remove_action( 'admin_menu', 'fmt_add_options_page' );
 }
 
 function filter_options() {
@@ -57,8 +64,3 @@ function filter_options() {
 		BASENAME
 	);
 }
-
-function remove_menu() : void {
-	remove_submenu_page( 'options-general.php', BASENAME );
-}
-

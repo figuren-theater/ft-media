@@ -9,6 +9,7 @@ Media &amp; attachment related optimization, packed for WordPress Multisites lik
 This package contains the following plugins. 
 Thoose are completely managed by code and lack of their typical UI.
 
+* [Attachment Taxonomies](https://wordpress.org/plugins/attachment-taxonomies/#developers)
 * [Format Media Titles](https://wordpress.org/plugins/format-media-titles/#developers)
 * [Image Source Control](https://wordpress.org/plugins/image-source-control-isc/#developers)
 * [Modern Images WP](https://wordpress.org/plugins/modern-images-wp/#developers)

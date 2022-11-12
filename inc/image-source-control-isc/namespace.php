@@ -42,9 +42,10 @@ function load_plugin() {
 
 	add_filter( 'pre_option_' . OPTION, __NAMESPACE__ . '\\re_set_dynamic_options', 20 );
 	
-	add_filter( 'attachment_fields_to_edit', 'remove_attachment_fields', 20, 2 );
+	add_filter( 'attachment_fields_to_edit', __NAMESPACE__ . '\\remove_attachment_fields', 20, 2 );
 
-	add_filter( 'do_shortcode_tag', 'load_block_table_styles', 10, 3 );
+	// fake a table-block, to load its styles
+	add_filter( 'do_shortcode_tag', __NAMESPACE__ . '\\load_block_table_styles', 10, 3 );
 
 	add_action( 'admin_notices', __NAMESPACE__ . '\\remove_notices', 0 );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
@@ -111,7 +112,7 @@ function re_set_dynamic_options( array $option ) : array {
 	$option['version']              = ISCVERSION; 
 	$option['standard_source_text'] = '© ' . $_blogname;
 	// $option['image_list_headline']  = __('Image Sources','image-source-control-isc');
-	$option['source_pretext']       = __('Source:','image-source-control-isc');
+	$option['source_pretext']       = __( 'Source:', 'image-source-control-isc' );
 	
 	return $option;
 }
@@ -121,9 +122,24 @@ function remove_attachment_fields( array $fields, WP_POST $attachment ) : array 
 	return $fields;
 }
 
-function load_block_table_styles( string $output, string $tag, array $attr ) : string {
+/**
+ * Fake a 'table'-block to load its styles.
+ *
+ * Normally this filters the output created by a shortcode callback.
+ * 
+ * @uses    https://developer.wordpress.org/reference/hooks/do_shortcode_tag/
+ *
+ * @package figuren-theater/media/image_source_control_isc
+ *
+ * @param   string       $output Shortcode output.
+ * @param   string       $tag    Shortcode name.
+ * @param   string|array $attr   Shortcode attributes array or empty string.
+ * 
+ * @return  string               Totally unchanged Shortcode output.
+ */
+function load_block_table_styles( string $output, string $tag, array|string $attr ) : string {
 	// make sure it is the right shortcode
-	if( 'isc_list_all' !== $tag)
+	if ( 'isc_list_all' !== $tag)
 		return $output;
 
 	// this triggers the loading of 'table-block'
@@ -135,8 +151,7 @@ function load_block_table_styles( string $output, string $tag, array $attr ) : s
 
 function remove_notices() : void {
 	// CLEAN UP
-	$ISC_Admin = ISC_Admin::get_instance();
-	remove_action( 'admin_notices', [ $ISC_Admin, 'branded_admin_header' ] );
+	remove_action( 'admin_notices', [ ISC_Admin::get_instance(), 'branded_admin_header' ] );
 }
 
 function remove_menu() : void {
