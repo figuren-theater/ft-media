@@ -1,14 +1,27 @@
 {
 	"name": "figuren-theater/ft-media",
 	"description": "Media & attachment related optimization packed for WordPress Multisite like figuren.theater",
+    "homepage": "https://websites.fuer.figuren.theater",
     "type": "wordpress-muplugin",
+    "keywords": ["wordpress", "attachments", "media", "uploads", "image compression", "webp"],
     "license": "GPL-3.0-or-later",
-	"authors": [
-		{
-			"name": "figuren.theater",
-			"email": "info@figuren.theater"
-		}
-	],
+    "authors": [
+        {
+            "name": "figuren.theater",
+            "email": "info@figuren.theater"
+        },
+        {
+            "name": "Carsten Bach",
+            "email": "mail@carsten-bach.de",
+            "homepage": "https://carsten-bach.de",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "info@figuren.theater",
+        "issues": "https://github.com/figuren-theater/ft-media/issues",
+        "source": "https://github.com/figuren-theater/ft-media"
+    },
 	"autoload": {
 		"files": [
 			"inc/attachment-taxonomies/namespace.php",

@@ -11,9 +11,10 @@ use Figuren_Theater\Options;
 
 use FT_VENDOR_DIR;
 
-use WP_POST;
 use ISC_Admin;
 use ISCVERSION;
+
+use WP_POST;
 
 use function add_action;
 use function add_filter;
@@ -49,6 +50,10 @@ function load_plugin() {
 
 	add_action( 'admin_notices', __NAMESPACE__ . '\\remove_notices', 0 );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
+
+	// remove "Additional Images" from "Sources" Page, 
+	// because it was reduced to just a big ad.
+	add_action( 'admin_footer-media_page_isc-sources', __NAMESPACE__ . '\\remove_part_of_sources' );
 }
 
 function filter_options() {
@@ -100,13 +105,23 @@ function filter_options() {
 	);
 }
 
-function re_set_dynamic_options( array $option ) : array {
+/**
+ * [re_set_dynamic_options description]
+ *
+ * @package [package]
+ * @since   2.10
+ *
+ * @param   array|bool      $option [description] could be false on WP_INSTALLING
+ * @return  [type]            [description]
+ */
+function re_set_dynamic_options( array|bool $option ) : array {
+
+	$option = ( is_array( $option ) ) ? $option : [];
 
 	$_blogname = get_option( 'blogname' );
 
 	// $_has_multiple_authors = ( !\Figuren_Theater\FT::site()->has_feature(['einsamer-wolf']) ) ? true : '';
 	// $_permalink_structure = \Figuren_Theater\API::get('Options')->get( 'permalink_structure' );
-
 
 	// prevents auto-updates of this options-field;
 	$option['version']              = ISCVERSION; 
@@ -158,3 +173,17 @@ function remove_menu() : void {
 	remove_submenu_page( 'options-general.php', 'isc-settings' );
 }
 
+function remove_part_of_sources() {
+
+	?>
+	<script type="text/javascript">
+		//<![CDATA[
+		jQuery( document ).ready( function( $ ) {
+			$( 'body.media_page_isc-sources' ).find( '.isc-table-storage' ).prev().remove();
+			$( 'body.media_page_isc-sources' ).find( '.isc-table-storage' ).prev().remove();
+			$( 'body.media_page_isc-sources' ).find( '.isc-table-storage' ).remove();
+		} );
+		//]]>
+	</script>
+	<?php
+}

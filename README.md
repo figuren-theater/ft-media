@@ -14,7 +14,7 @@ Thoose are completely managed by code and lack of their typical UI.
 * [Image Source Control](https://wordpress.org/plugins/image-source-control-isc/#developers)
 * [Modern Images WP](https://wordpress.org/plugins/modern-images-wp/#developers)
 
-## What this does?
+## What does this package do in addition?
 
 Accompaniying the core functionality of the mentioned plugins, theese **best practices** are included with this package.
 
