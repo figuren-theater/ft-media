@@ -12,6 +12,9 @@ use Figuren_Theater\Options;
 use FT_VENDOR_DIR;
 
 use function add_action;
+use function is_admin;
+use function is_network_admin;
+use function is_user_admin;
 use function remove_submenu_page;
 
 const BASENAME   = 'format-media-titles/format-media-titles.php';
@@ -29,6 +32,14 @@ function bootstrap() {
 
 function load_plugin() {
 
+	// Do only load in "normal" admin view
+	// Not for:
+	// - public views
+	// - network-admin views
+	// - user-admin views
+	if ( ! is_admin() || is_network_admin() || is_user_admin() )
+		return;
+	
 	require_once PLUGINPATH;
 
 	// unhook i18n

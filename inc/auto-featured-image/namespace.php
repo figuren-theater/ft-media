@@ -13,6 +13,9 @@ use function add_action;
 use function add_theme_support;
 use function get_children;
 use function has_post_thumbnail;
+use function is_admin;
+use function is_network_admin;
+use function is_user_admin;
 use function set_post_thumbnail;
 
 
@@ -22,10 +25,20 @@ use function set_post_thumbnail;
  * @return void
  */
 function bootstrap() {
+
 	add_action( 'init', __NAMESPACE__ . '\\load' );
 }
 
 function load() {
+
+	// Do only load in "normal" admin view
+	// Not for:
+	// - public views
+	// - network-admin views
+	// - user-admin views
+	if ( ! is_admin() || is_network_admin() || is_user_admin() )
+		return;
+	
 	// This should be in your theme. 
 	// But we add this here because this way we can have featured images before switching to a theme that supports them.
 	add_theme_support( 'post-thumbnails' ); 

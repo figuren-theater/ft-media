@@ -15,6 +15,7 @@ use DOING_AJAX;
 
 use function add_action;
 use function add_filter;
+use function is_network_admin;
 use function remove_submenu_page;
 
 const BASENAME   = 'modern-images-wp/modern-images-wp.php';
@@ -33,6 +34,9 @@ function bootstrap() {
 
 function load_plugin() {
 
+	if ( is_network_admin() )
+		return;
+	
 	require_once PLUGINPATH;
 
 	// make sure this runs on ajax requests

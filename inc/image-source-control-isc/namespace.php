@@ -20,6 +20,7 @@ use function add_action;
 use function add_filter;
 use function do_blocks;
 use function get_option;
+use function is_network_admin;
 use function remove_action;
 use function remove_submenu_page;
 
@@ -39,6 +40,9 @@ function bootstrap() {
 
 function load_plugin() {
 
+	if ( is_network_admin() )
+		return;
+	
 	require_once PLUGINPATH;
 
 	add_filter( 'pre_option_' . OPTION, __NAMESPACE__ . '\\re_set_dynamic_options', 20 );
