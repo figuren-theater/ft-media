@@ -84,10 +84,11 @@ function load() {
 /**
  * Automatically add first image in content as featured image if none is set.
  *
- * @param object $post Post Object.
+ * @param object|null $post Post Object or null if is called during trashing.
+ * 
  * @link https://wordpress.org/plugins/easy-add-thumbnail/
  */
-function auto_featured_image( WP_Post $post ) : void {
+function auto_featured_image( WP_Post|null $post ) : void {
 
 	// Do nothing if the post has already a featured image set.
 	if ( has_post_thumbnail( $post ) ) {
