@@ -7,9 +7,10 @@
 
 namespace Figuren_Theater\Media\Image_Source_Control_ISC;
 
-use Figuren_Theater\Options;
-
 use FT_VENDOR_DIR;
+
+use Figuren_Theater\Media;
+use Figuren_Theater\Options;
 
 use ISC_Admin;
 use ISCVERSION;
@@ -58,6 +59,8 @@ function load_plugin() {
 	// remove "Additional Images" from "Sources" Page, 
 	// because it was reduced to just a big ad.
 	add_action( 'admin_footer-media_page_isc-sources', __NAMESPACE__ . '\\remove_part_of_sources' );
+	
+	// add_action( 'after_setup_theme', __NAMESPACE__ . '\\enqueue_css_fix' );
 }
 
 function filter_options() {
@@ -161,9 +164,12 @@ function load_block_table_styles( string $output, string $tag, array|string $att
 	if ( 'isc_list_all' !== $tag)
 		return $output;
 
+
 	// this triggers the loading of 'table-block'
 	// related scripts and styles
 	do_blocks( '<!-- wp:table {"className":"is-style-stripes"} --><!-- /wp:table -->' );
+
+	enqueue_css_fix();
 
 	return $output;
 }
@@ -190,4 +196,19 @@ function remove_part_of_sources() {
 		//]]>
 	</script>
 	<?php
+}
+
+
+function enqueue_css_fix() {
+	// Same args used for wp_enqueue_style().
+	$args = array(
+		'handle' => 'image-source-control-isc-fix',
+		'src'    => Media\ASSETS_URL .'image-source-control-isc/fix.css',
+	);
+
+	// Add "path" to allow inlining asset if the theme opts-in.
+	$args['path'] = Media\DIRECTORY . 'assets/image-source-control-isc/fix.css';
+
+	// Enqueue asset.
+	wp_enqueue_block_style( 'core/table', $args );
 }
