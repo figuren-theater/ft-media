@@ -51,7 +51,7 @@ function bootstrap() {
  * }
  */
 function compress( array $file ) : array {
-	if (0!==$file['error'])
+	if (isset($file['error']) && 0!==$file['error'] )
 		return $file;
 
 	$mime = explode('/', $file['type']);
