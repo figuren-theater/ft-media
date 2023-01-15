@@ -49,10 +49,10 @@
 	"require": {
         "php": ">=7.1",
         "figuren-theater/ft-options": "^1",
-        "wpackagist-plugin/attachment-taxonomies": "1.1.1",
+        "wpackagist-plugin/attachment-taxonomies": "^1",
         "wpackagist-plugin/format-media-titles":"1.0.0",
-        "wpackagist-plugin/image-source-control-isc":"2.8.0",
-        "wpackagist-plugin/modern-images-wp":"1.1.0"
+        "wpackagist-plugin/image-source-control-isc":"^2",
+        "wpackagist-plugin/modern-images-wp":"^1"
 	},
     "extra": {
         "altis": {
