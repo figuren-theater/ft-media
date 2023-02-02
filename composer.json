@@ -1,6 +1,6 @@
 {
 	"name": "figuren-theater/ft-media",
-	"description": "Media & attachment related optimization packed for WordPress Multisite like figuren.theater",
+	"description": "Optimizations related to media & attachments, packed for a WordPress multisite network like figuren.theater",
     "homepage": "https://websites.fuer.figuren.theater",
     "type": "wordpress-muplugin",
     "keywords": ["wordpress", "attachments", "media", "uploads", "image compression", "webp"],

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     figuren.theater | Media
  * Plugin URI:      https://github.com/figuren-theater/ft-media
- * Description:     Media & attachment related optimization packed for WordPress Multisite like figuren.theater
+ * Description:     Optimizations related to media & attachments, packed for a WordPress multisite network like figuren.theater
  * Author:          figuren.theater
  * Author URI:      https://figuren.theater
  * Text Domain:     figurentheater
