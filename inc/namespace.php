@@ -43,7 +43,6 @@ function bootstrap() {
 	// Plugins
 	Attachment_Taxonomies\bootstrap();
 	Format_Media_Titles\bootstrap();
-	Image_Source_Control_ISC\bootstrap();
 	Modern_Images_WP\bootstrap();
 	
 	// Best practices
