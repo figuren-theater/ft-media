@@ -10,7 +10,9 @@ namespace Figuren_Theater\Media\Attachment_Taxonomies;
 use FT_VENDOR_DIR;
 
 use function add_action;
+use function is_admin;
 use function is_network_admin;
+use function is_user_admin;
 
 const BASENAME   = 'attachment-taxonomies/attachment-taxonomies.php';
 const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
@@ -25,7 +27,7 @@ function bootstrap() {
 
 function load_plugin() {
 
-	if ( is_network_admin() )
+	if ( ! is_admin() || is_network_admin() || is_user_admin() )
 		return;
 	
 	require_once PLUGINPATH;
