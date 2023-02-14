@@ -10,6 +10,8 @@ namespace Figuren_Theater\Media;
 use Altis;
 use function Altis\register_module;
 
+use function is_admin;
+
 const ASSETS_URL = WPMU_PLUGIN_URL . '/FT/ft-media/assets/';
 
 
@@ -19,7 +21,7 @@ const ASSETS_URL = WPMU_PLUGIN_URL . '/FT/ft-media/assets/';
 function register() {
 
 	$default_settings = [
-		'enabled' => true, // needs to be set
+		'enabled' => is_admin(), // needs to be set
 	];
 	
 	$options = [
