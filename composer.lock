@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4af93086634c1cb053aa36835924de91",
+    "content-hash": "fff1010a2e365573ed7e4c1b76d65b27",
     "packages": [
         {
             "name": "composer/installers",
@@ -265,21 +265,39 @@
         },
         {
             "name": "wpackagist-plugin/format-media-titles",
-            "version": "1.29",
+            "version": "1.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/format-media-titles/",
-                "reference": "tags/1.29"
+                "reference": "tags/1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/format-media-titles.1.29.zip"
+                "url": "https://downloads.wordpress.org/plugin/format-media-titles.1.0.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/format-media-titles/"
+        },
+        {
+            "name": "wpackagist-plugin/image-source-control-isc",
+            "version": "2.9.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/image-source-control-isc/",
+                "reference": "tags/2.9.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/image-source-control-isc.2.9.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/image-source-control-isc/"
         },
         {
             "name": "wpackagist-plugin/modern-images-wp",
