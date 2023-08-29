@@ -1,19 +1,18 @@
 <?php
 /**
- * Figuren_Theater Media Image_Optimzation.
+ * Figuren_Theater Media Image_Optimization.
  *
  * @package figuren-theater/ft-media
  */
 
-namespace Figuren_Theater\Media\Image_Optimzation;
+namespace Figuren_Theater\Media\Image_Optimization;
 
 use function add_filter;
 use IMAGETYPE_GIF;
 use IMAGETYPE_JPEG;
-
 use IMAGETYPE_PNG;
-
 use Imagick;
+use WP_Filesystem_Direct;
 
 /**
  * Bootstrap module, when enabled.
@@ -92,6 +91,9 @@ function replace( string $path ) : int|false {
 	}
 
 	// Replace image on the server.
+	//
+	// Filesystem writes are (NOT) forbidden (over here).
+	// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
 	return file_put_contents(
 		$path,
 		$compressed_raw
@@ -113,12 +115,16 @@ function replace( string $path ) : int|false {
  * @return string Raw image result from the process
  */
 function optimize( string $file_path ) : string {
-	/**
-	 * Compress image
-	 */
-	$imagick = new Imagick();
 
-	$raw_image = file_get_contents( $file_path );
+	// Get ImageMagic information, if available.
+	if ( ! class_exists( 'Imagick' ) ) {
+		return '';
+	}
+	// Compress image.
+	$imagick = new Imagick();
+	// Initializes and connects the WordPress Filesystem Abstraction classes.
+	$filesystem = new WP_Filesystem_Direct( true );
+	$raw_image = $filesystem->get_contents( $file_path );
 
 	if ( ! is_string( $raw_image ) ) {
 		return '';
@@ -157,8 +163,8 @@ function optimize( string $file_path ) : string {
 			$imagick->profileImage( 'icc', $profiles['icc'] );
 		}
 
-		$imagick->setInterlaceScheme( Imagick::INTERLACE_JPEG );
-		$imagick->setColorspace( Imagick::COLORSPACE_SRGB );
+		$imagick->setInterlaceScheme( $imagick::INTERLACE_JPEG );
+		$imagick->setColorspace( $imagick::COLORSPACE_SRGB );
 	} elseif ( $image_types[2] === IMAGETYPE_PNG ) {
 		$imagick->setImageFormat( 'png' );
 	} elseif ( $image_types[2] === IMAGETYPE_GIF ) {

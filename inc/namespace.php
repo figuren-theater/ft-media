@@ -49,5 +49,5 @@ function bootstrap() :void {
 
 	// Best practices.
 	Auto_Featured_Image\bootstrap();
-	Image_Optimzation\bootstrap();
+	Image_Optimization\bootstrap();
 }

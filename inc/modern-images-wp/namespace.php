@@ -93,15 +93,13 @@ function filter_options() :void {
  * @return  void
  */
 function wp_ajax_upload_attachment() : void {
-	/**
-	 * If we're not performing our AJAX request, return early.
-	 */
+	// If we're not performing our AJAX request, return early.
 	if ( ! defined( 'DOING_AJAX' )
-		|| ! DOING_AJAX
-		|| ! isset( $_REQUEST['action'] )
-		|| 'crop-image' !== $_REQUEST['action']
-		|| ! isset( $_REQUEST['context'] )
-		|| 'site-icon' !== $_REQUEST['context']
+	|| ! DOING_AJAX
+		|| ! isset( $_REQUEST['action'] )         // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
+		|| 'crop-image' !== $_REQUEST['action']   // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
+		|| ! isset( $_REQUEST['context'] )        // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
+		|| 'site-icon' !== $_REQUEST['context']   // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
 	) {
 		return;
 	}
