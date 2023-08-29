@@ -9,7 +9,7 @@
  * Domain Path:     /languages
  * Version:         1.0.15
  *
- * @package         figuren-theater/media
+ * @package         figuren-theater/ft-media
  */
 
 namespace Figuren_Theater\Media;

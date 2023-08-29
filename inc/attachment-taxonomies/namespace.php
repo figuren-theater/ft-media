@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Media Attachment_Taxonomies.
  *
- * @package figuren-theater/media/attachment_taxonomies
+ * @package figuren-theater/ft-media
  */
 
 namespace Figuren_Theater\Media\Attachment_Taxonomies;
@@ -15,20 +15,28 @@ use function is_network_admin;
 use function is_user_admin;
 
 const BASENAME   = 'attachment-taxonomies/attachment-taxonomies.php';
-const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
+const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap() :void {
 
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 0 );
 }
 
-function load_plugin() {
+/**
+ * Conditionally load the plugin itself and its modifications.
+ *
+ * @return void
+ */
+function load_plugin() :void {
 
-	if ( ! is_admin() || is_network_admin() || is_user_admin() )
+	if ( ! is_admin() || is_network_admin() || is_user_admin() ) {
 		return;
-	
-	require_once PLUGINPATH;
+	}
+
+	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 }
