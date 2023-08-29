@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Media Image_Optimzation.
  *
- * @package figuren-theater/media/image_optimization
+ * @package figuren-theater/ft-media
  */
 
 namespace Figuren_Theater\Media\Image_Optimzation;
@@ -55,8 +55,8 @@ function compress( array $file ) : array {
 		return $file;
 
 	$mime = explode('/', $file['type']);
-	if ( 
-		'image'!==$mime[0] 
+	if (
+		'image'!==$mime[0]
 		||
 		! in_array($mime[1], ['jpeg','jpg','png','gif',])
 	)
@@ -71,10 +71,10 @@ function compress( array $file ) : array {
 }
 
 function replace( string $path ) : int {
-	
+
 	// compress image
 	$compressed_raw = optimize( $path );
-	
+
 	// if somethin went wrong
 	// return, unchanged
 	if ( ! is_string( $compressed_raw ) || empty( $compressed_raw ) )
@@ -85,14 +85,14 @@ function replace( string $path ) : int {
 		$path,
 		$compressed_raw
 	);
-	
+
 }
 
 /**
  * Optimize image
- * 
+ *
  * https://developers.google.com/speed/docs/insights/OptimizeImages
- * 
+ *
  * -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB
  *
  * @access public
@@ -140,11 +140,11 @@ function optimize( string $filePath ) : string {
 		$imagick->setInterlaceScheme(Imagick::INTERLACE_JPEG);
 		$imagick->setColorspace(Imagick::COLORSPACE_SRGB);
 	}
-	else if ($image_types[2] === IMAGETYPE_PNG) 
+	else if ($image_types[2] === IMAGETYPE_PNG)
 	{
 		$imagick->setImageFormat('png');
 	}
-	else if ($image_types[2] === IMAGETYPE_GIF) 
+	else if ($image_types[2] === IMAGETYPE_GIF)
 	{
 		$imagick->setImageFormat('gif');
 	}

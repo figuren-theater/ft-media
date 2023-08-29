@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Media Attachment_Taxonomies.
  *
- * @package figuren-theater/media/attachment_taxonomies
+ * @package figuren-theater/ft-media
  */
 
 namespace Figuren_Theater\Media\Attachment_Taxonomies;
@@ -29,6 +29,6 @@ function load_plugin() {
 
 	if ( ! is_admin() || is_network_admin() || is_user_admin() )
 		return;
-	
+
 	require_once PLUGINPATH;
 }

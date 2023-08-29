@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Media Format_Media_Titles.
  *
- * @package figuren-theater/media/format_media_titles
+ * @package figuren-theater/ft-media
  */
 
 namespace Figuren_Theater\Media\Format_Media_Titles;
@@ -26,7 +26,7 @@ const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
 function bootstrap() {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
-	
+
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 9 );
 }
 
@@ -39,7 +39,7 @@ function load_plugin() {
 	// - user-admin views
 	if ( ! is_admin() || is_network_admin() || is_user_admin() )
 		return;
-	
+
 	require_once PLUGINPATH;
 
 	// unhook i18n
@@ -53,7 +53,7 @@ function load_plugin() {
 }
 
 function filter_options() {
-	
+
 	$_options = [
 		'chk_hyphen'             => '1',
 		'chk_underscore'         => '1',
@@ -67,7 +67,7 @@ function filter_options() {
 		'chk_default_options_db' => '1',
 	];
 
-	// gets added to the 'OptionsCollection' 
+	// gets added to the 'OptionsCollection'
 	// from within itself on creation
 	new Options\Option(
 		'fmt_options',
