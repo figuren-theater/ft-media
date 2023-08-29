@@ -1,28 +1,58 @@
 {
 	"name": "figuren-theater/ft-media",
 	"description": "Optimizations related to media & attachments, packed for a WordPress multisite network like figuren.theater",
-    "homepage": "https://websites.fuer.figuren.theater",
-    "type": "wordpress-muplugin",
-    "keywords": ["wordpress", "attachments", "media", "uploads", "image compression", "webp"],
-    "license": "GPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "figuren.theater",
-            "email": "info@figuren.theater"
-        },
-        {
-            "name": "Carsten Bach",
-            "email": "mail@carsten-bach.de",
-            "homepage": "https://carsten-bach.de",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "info@figuren.theater",
-        "issues": "https://github.com/figuren-theater/ft-media/issues",
-        "source": "https://github.com/figuren-theater/ft-media"
-    },
+	"license": "GPL-3.0-or-later",
+	"type": "wordpress-muplugin",
+	"keywords": [
+		"wordpress",
+		"attachments",
+		"media",
+		"uploads",
+		"image compression",
+		"webp"
+	],
+	"authors": [
+		{
+			"name": "figuren.theater",
+			"email": "info@figuren.theater"
+		},
+		{
+			"name": "Carsten Bach",
+			"email": "mail@carsten-bach.de",
+			"homepage": "https://carsten-bach.de",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://websites.fuer.figuren.theater",
+	"support": {
+		"email": "info@figuren.theater",
+		"issues": "https://github.com/figuren-theater/ft-media/issues",
+		"source": "https://github.com/figuren-theater/ft-media"
+	},
+	"require": {
+		"php": ">=7.1",
+		"figuren-theater/ft-options": "^1",
+		"wpackagist-plugin/attachment-taxonomies": "^1",
+		"wpackagist-plugin/format-media-titles": "1.0.0",
+		"wpackagist-plugin/modern-images-wp": "^1"
+	},
+	"require-dev": {
+		"figuren-theater/code-quality": "^0.6.7"
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/figuren-theater/ft-options"
+		},
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
 	"autoload": {
+		"classmap": [
+			"inc/"
+		],
 		"files": [
 			"inc/attachment-taxonomies/namespace.php",
 			"inc/auto-featured-image/namespace.php",
@@ -30,39 +60,7 @@
 			"inc/image-optimization/namespace.php",
 			"inc/modern-images-wp/namespace.php",
 			"inc/namespace.php"
-		],
-        "classmap": [
-            "inc/"
-        ]
-	},
-	"repositories": [
-		{
-            "type": "git",
-            "url": "https://github.com/figuren-theater/ft-options"
-        },
-		{
-			"type": "composer",
-			"url" : "https://wpackagist.org"
-		}
-	],
-	"require": {
-        "php": ">=7.1",
-        "figuren-theater/ft-options": "^1",
-        "wpackagist-plugin/attachment-taxonomies": "^1",
-        "wpackagist-plugin/format-media-titles":"1.0.0",
-        "wpackagist-plugin/modern-images-wp":"^1"
-	},
-    "extra": {
-        "altis": {
-            "install-overrides": [
-                "wpackagist-plugin/attachment-taxonomies",
-            	"wpackagist-plugin/format-media-titles",
-            	"wpackagist-plugin/modern-images-wp"
-            ]
-        }
-    },
-	"require-dev": {
-		"figuren-theater/code-quality": "^0.6.7"
+		]
 	},
 	"config": {
 		"allow-plugins": {
@@ -70,6 +68,15 @@
 			"phpstan/extension-installer": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"ergebnis/composer-normalize": true
+		}
+	},
+	"extra": {
+		"altis": {
+			"install-overrides": [
+				"wpackagist-plugin/attachment-taxonomies",
+				"wpackagist-plugin/format-media-titles",
+				"wpackagist-plugin/modern-images-wp"
+			]
 		}
 	}
 }
