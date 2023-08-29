@@ -7,25 +7,23 @@
 
 namespace Figuren_Theater\Media\Image_Optimzation;
 
-use IMAGETYPE_JPEG;
-use IMAGETYPE_PNG;
+use function add_filter;
 use IMAGETYPE_GIF;
+use IMAGETYPE_JPEG;
+
+use IMAGETYPE_PNG;
 
 use Imagick;
 
-use function add_filter;
-
-
 /**
- * Set up hooks.
+ * Bootstrap module, when enabled.
  *
  * @return void
  */
-function bootstrap() {
+function bootstrap() :void {
 	add_filter( 'wp_handle_sideload_prefilter', __NAMESPACE__ . '\\compress' );
 	add_filter( 'wp_handle_upload_prefilter', __NAMESPACE__ . '\\compress' );
 }
-
 
 /**
  * Filters the data for a file before it is uploaded to WordPress.
@@ -51,36 +49,47 @@ function bootstrap() {
  * }
  */
 function compress( array $file ) : array {
-	if (isset($file['error']) && 0!==$file['error'] )
+	if ( isset( $file['error'] ) && 0 !== $file['error'] ) {
 		return $file;
+	}
 
-	$mime = explode('/', $file['type']);
+	$mime = explode( '/', $file['type'] );
 	if (
-		'image'!==$mime[0]
+		'image' !== $mime[0]
 		||
-		! in_array($mime[1], ['jpeg','jpg','png','gif',])
-	)
+		! in_array( $mime[1], [ 'jpeg', 'jpg', 'png', 'gif' ], true )
+	) {
 		return $file;
+	}
 
 	$file_put_contents = replace( $file['tmp_name'] );
 
-	if ( is_int( $file_put_contents ) && ! empty( $file_put_contents ) )
+	if ( is_int( $file_put_contents ) && ! empty( $file_put_contents ) ) {
 		$file['size'] = $file_put_contents;
+	}
 
 	return $file;
 }
 
-function replace( string $path ) : int {
+/**
+ * Replace an image on the server with a compressed version of the same image.
+ *
+ * @param  string $path Absolute path to the image to replace compressed.
+ *
+ * @return int|false The function returns the number of bytes that were written to the file, or false on failure.
+ */
+function replace( string $path ) : int|false {
 
-	// compress image
+	// Compress image.
 	$compressed_raw = optimize( $path );
 
-	// if somethin went wrong
-	// return, unchanged
-	if ( ! is_string( $compressed_raw ) || empty( $compressed_raw ) )
-		return 0;
+	// If somethin went wrong
+	// return, unchanged.
+	if ( ! is_string( $compressed_raw ) || empty( $compressed_raw ) ) {
+		return false;
+	}
 
-	// replace image on the server
+	// Replace image on the server.
 	return file_put_contents(
 		$path,
 		$compressed_raw
@@ -91,69 +100,66 @@ function replace( string $path ) : int {
 /**
  * Optimize image
  *
- * https://developers.google.com/speed/docs/insights/OptimizeImages
- *
  * -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB
  *
+ * @see https://developers.google.com/speed/docs/insights/OptimizeImages
+ *
  * @access public
- * @param string $filePath Path of the file
+ *
+ * @param string $file_path Path of the file
+ *
  * @return string Raw image result from the process
  */
-function optimize( string $filePath ) : string {
+function optimize( string $file_path ) : string {
 	/**
 	 * Compress image
 	 */
-	$imagick        = new Imagick();
+	$imagick = new Imagick();
 
-	$rawImage = file_get_contents($filePath);
+	$raw_image = file_get_contents( $file_path );
 
-	$imagick->readImageBlob($rawImage);
+	$imagick->readImageBlob( $raw_image );
 	$imagick->stripImage();
 
-	// Define image
+	// Define image.
 	$width      = $imagick->getImageWidth();
 	$height     = $imagick->getImageHeight();
 
-	// Compress image
-	$imagick->setImageCompressionQuality(85);
+	// Compress image.
+	$imagick->setImageCompressionQuality( 85 );
 
-	$image_types = getimagesize($filePath);
+	$image_types = getimagesize( $file_path );
 
-	// Get thumbnail image
-	$imagick->thumbnailImage($width, $height);
+	// Get thumbnail image.
+	$imagick->thumbnailImage( $width, $height );
 
-	// Set image as based its own type
-	if ($image_types[2] === IMAGETYPE_JPEG)
-	{
-		$imagick->setImageFormat('jpeg');
+	// Set image as based its own type.
+	if ( $image_types[2] === IMAGETYPE_JPEG ) {
+		$imagick->setImageFormat( 'jpeg' );
 
-		$imagick->setSamplingFactors(array('2x2', '1x1', '1x1'));
+		$imagick->setSamplingFactors( [ '2x2', '1x1', '1x1' ] );
 
-		$profiles = $imagick->getImageProfiles("icc", true);
+		$profiles = $imagick->getImageProfiles( 'icc', true );
 
 		$imagick->stripImage();
 
-		if(!empty($profiles)) {
-			$imagick->profileImage('icc', $profiles['icc']);
+		if ( ! empty( $profiles ) ) {
+			$imagick->profileImage( 'icc', $profiles['icc'] );
 		}
 
-		$imagick->setInterlaceScheme(Imagick::INTERLACE_JPEG);
-		$imagick->setColorspace(Imagick::COLORSPACE_SRGB);
-	}
-	else if ($image_types[2] === IMAGETYPE_PNG)
-	{
-		$imagick->setImageFormat('png');
-	}
-	else if ($image_types[2] === IMAGETYPE_GIF)
-	{
-		$imagick->setImageFormat('gif');
+		$imagick->setInterlaceScheme( Imagick::INTERLACE_JPEG );
+		$imagick->setColorspace( Imagick::COLORSPACE_SRGB );
+	} elseif ( $image_types[2] === IMAGETYPE_PNG ) {
+		$imagick->setImageFormat( 'png' );
+	} elseif ( $image_types[2] === IMAGETYPE_GIF ) {
+		$imagick->setImageFormat( 'gif' );
 	}
 
-	// Get image raw data
-	$rawData = $imagick->getImageBlob();
+	// Get image raw data.
+	$raw_data = $imagick->getImageBlob();
 
-	// Destroy image from memory
+	// Destroy image from memory.
 	$imagick->destroy();
 
-	return $rawData;
+	return $raw_data;
 }

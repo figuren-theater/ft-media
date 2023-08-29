@@ -2,28 +2,26 @@
 /**
  * Figuren_Theater Media.
  *
- * @package figuren-theater/media
+ * @package figuren-theater/ft-media
  */
 
 namespace Figuren_Theater\Media;
 
 use Altis;
-use function Altis\register_module;
 
 use function is_admin;
 
-const ASSETS_URL = WPMU_PLUGIN_URL . '/FT/ft-media/assets/';
-
-
 /**
  * Register module.
+ *
+ * @return void
  */
-function register() {
+function register() :void {
 
 	$default_settings = [
-		'enabled' => is_admin(), // needs to be set
+		'enabled' => is_admin(), // Needs to be set.
 	];
-	
+
 	$options = [
 		'defaults' => $default_settings,
 	];
@@ -39,15 +37,17 @@ function register() {
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
-function bootstrap() {
+function bootstrap() :void {
 
-	// Plugins
+	// Plugins.
 	Attachment_Taxonomies\bootstrap();
 	Format_Media_Titles\bootstrap();
 	Modern_Images_WP\bootstrap();
-	
-	// Best practices
+
+	// Best practices.
 	Auto_Featured_Image\bootstrap();
 	Image_Optimzation\bootstrap();
 }
