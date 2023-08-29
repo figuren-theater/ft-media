@@ -90,9 +90,9 @@ function filter_options() :void {
  * @version version
  * @author  Carsten Bach
  *
- * @return  [type]       [description]
+ * @return  void
  */
-function wp_ajax_upload_attachment() {
+function wp_ajax_upload_attachment() : void {
 	/**
 	 * If we're not performing our AJAX request, return early.
 	 */

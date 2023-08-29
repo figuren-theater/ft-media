@@ -86,11 +86,15 @@ function load() :void {
 /**
  * Automatically add first image in content as featured image if none is set.
  *
- * @param object|null $post Post Object or null if is called during trashing.
+ * @param WP_Post|null $post Post Object or null if is called during trashing.
  *
  * @link https://wordpress.org/plugins/easy-add-thumbnail/
  */
 function auto_featured_image( WP_Post|null $post ) : void {
+
+	if ( is_null( $post ) ) {
+		return;
+	}
 
 	// Do nothing if the post has already a featured image set.
 	if ( has_post_thumbnail( $post ) ) {
@@ -113,8 +117,11 @@ function auto_featured_image( WP_Post|null $post ) : void {
 	if ( $attached_image ) {
 
 		$attachment_values = array_values( $attached_image );
-		set_post_thumbnail( $post->ID, $attachment_values[0]->ID );
-		return;
+
+		if ( isset( $attachment_values[0] ) && $attachment_values[0] instanceof WP_Post ) {
+			set_post_thumbnail( $post->ID, $attachment_values[0]->ID );
+			return;
+		}
 	}
 
 	// Use regex to find image blocks in the post content.

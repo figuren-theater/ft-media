@@ -38,7 +38,7 @@ function bootstrap() :void {
  * @since 2.9.0 as 'wp_handle_upload_prefilter'.
  * @since 4.0.0 Converted to a dynamic hook with `$action`.
  *
- * @param array $file {
+ * @param array<string, int|string> $file {
  *     Reference to a single element from `$_FILES`.
  *
  *     @type string $name     The original name of the file on the client machine.
@@ -47,13 +47,15 @@ function bootstrap() :void {
  *     @type int    $size     The size, in bytes, of the uploaded file.
  *     @type int    $error    The error code associated with this file upload.
  * }
+ *
+ * @return array<string, int|string>
  */
 function compress( array $file ) : array {
 	if ( isset( $file['error'] ) && 0 !== $file['error'] ) {
 		return $file;
 	}
 
-	$mime = explode( '/', $file['type'] );
+	$mime = explode( '/', (string) $file['type'] );
 	if (
 		'image' !== $mime[0]
 		||
@@ -62,7 +64,7 @@ function compress( array $file ) : array {
 		return $file;
 	}
 
-	$file_put_contents = replace( $file['tmp_name'] );
+	$file_put_contents = replace( (string) $file['tmp_name'] );
 
 	if ( is_int( $file_put_contents ) && ! empty( $file_put_contents ) ) {
 		$file['size'] = $file_put_contents;
@@ -85,7 +87,7 @@ function replace( string $path ) : int|false {
 
 	// If somethin went wrong
 	// return, unchanged.
-	if ( ! is_string( $compressed_raw ) || empty( $compressed_raw ) ) {
+	if ( empty( $compressed_raw ) ) {
 		return false;
 	}
 
@@ -118,6 +120,10 @@ function optimize( string $file_path ) : string {
 
 	$raw_image = file_get_contents( $file_path );
 
+	if ( ! is_string( $raw_image ) ) {
+		return '';
+	}
+
 	$imagick->readImageBlob( $raw_image );
 	$imagick->stripImage();
 
@@ -132,6 +138,10 @@ function optimize( string $file_path ) : string {
 
 	// Get thumbnail image.
 	$imagick->thumbnailImage( $width, $height );
+
+	if ( ! isset( $image_types[2] ) ) {
+		return '';
+	}
 
 	// Set image as based its own type.
 	if ( $image_types[2] === IMAGETYPE_JPEG ) {
