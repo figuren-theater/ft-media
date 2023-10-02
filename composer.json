@@ -37,7 +37,7 @@
 		"wpackagist-plugin/modern-images-wp": "^1"
 	},
 	"require-dev": {
-		"figuren-theater/code-quality": "^0.6.7"
+		"figuren-theater/code-quality": "^0.8.1"
 	},
 	"repositories": [
 		{
