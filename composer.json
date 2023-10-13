@@ -31,19 +31,15 @@
 	},
 	"require": {
 		"php": ">=7.1",
-		"figuren-theater/ft-options": "^1",
-		"wpackagist-plugin/attachment-taxonomies": "^1",
+		"figuren-theater/ft-options": "*",
+		"wpackagist-plugin/attachment-taxonomies": "1.1.1",
 		"wpackagist-plugin/format-media-titles": "1.0.0",
-		"wpackagist-plugin/modern-images-wp": "^1"
+		"wpackagist-plugin/modern-images-wp": "1.1.0"
 	},
 	"require-dev": {
-		"figuren-theater/code-quality": "^0.6.7"
+		"figuren-theater/code-quality": "*"
 	},
 	"repositories": [
-		{
-			"type": "git",
-			"url": "https://github.com/figuren-theater/ft-options"
-		},
 		{
 			"type": "composer",
 			"url": "https://wpackagist.org"
