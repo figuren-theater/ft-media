@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-media/compare/1.1.1...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-media/compare/1.2.0...HEAD)
+
+## [1.2.0](https://github.com/figuren-theater/ft-media/compare/1.1.1...1.2.0) - 2023-10-16
+
+### Dependency Updates & Maintenance
+
+- Bump wpackagist-plugin/attachment-taxonomies from 1.1.1 to 1.2.0 ([#16](https://github.com/figuren-theater/ft-media/pull/16))
 
 ## [1.1.1](https://github.com/figuren-theater/ft-media/compare/1.1.0...1.1.1) - 2023-10-13
 
