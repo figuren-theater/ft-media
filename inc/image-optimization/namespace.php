@@ -7,12 +7,12 @@
 
 namespace Figuren_Theater\Media\Image_Optimization;
 
-use function add_filter;
 use IMAGETYPE_GIF;
 use IMAGETYPE_JPEG;
 use IMAGETYPE_PNG;
 use Imagick;
 use WP_Filesystem_Direct;
+use function add_filter;
 
 /**
  * Bootstrap module, when enabled.
@@ -109,9 +109,9 @@ function replace( string $path ): int|false {
  *
  * @access public
  *
- * @param string $file_path Path of the file
+ * @param  string $file_path Path of the file.
  *
- * @return string Raw image result from the process
+ * @return string            Raw image result from the process.
  */
 function optimize( string $file_path ): string {
 

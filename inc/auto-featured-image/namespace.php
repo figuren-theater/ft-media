@@ -7,8 +7,8 @@
 
 namespace Figuren_Theater\Media\Auto_Featured_Image;
 
+use WP_Post;
 use function add_action;
-
 use function add_theme_support;
 use function get_children;
 use function has_post_thumbnail;
@@ -16,14 +16,14 @@ use function is_admin;
 use function is_network_admin;
 use function is_user_admin;
 use function set_post_thumbnail;
-use WP_Post;
+
 
 /**
  * Bootstrap module, when enabled.
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	add_action( 'init', __NAMESPACE__ . '\\load' );
 }
@@ -33,7 +33,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function load() :void {
+function load(): void {
 
 	// Do only load in "normal" admin view
 	// Not for:
@@ -90,7 +90,7 @@ function load() :void {
  *
  * @link https://wordpress.org/plugins/easy-add-thumbnail/
  */
-function auto_featured_image( WP_Post|null $post ) : void {
+function auto_featured_image( WP_Post|null $post ): void {
 
 	if ( is_null( $post ) ) {
 		return;

@@ -27,7 +27,7 @@ const OPTION     = 'modern-images-wp-setting';
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 
@@ -39,7 +39,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function load_plugin() :void {
+function load_plugin(): void {
 
 	if ( is_network_admin() ) {
 		return;
@@ -58,7 +58,7 @@ function load_plugin() :void {
  *
  * @return void
  */
-function filter_options() :void {
+function filter_options(): void {
 
 	$_options = [
 		'modern_image_output_format_for_jpeg' => 'image/webp', // '' // Leave empty for DEBUG only.
@@ -92,10 +92,10 @@ function filter_options() :void {
  *
  * @return  void
  */
-function wp_ajax_upload_attachment() : void {
+function wp_ajax_upload_attachment(): void {
 	// If we're not performing our AJAX request, return early.
 	if ( ! defined( 'DOING_AJAX' )
-	|| ! DOING_AJAX
+	|| ! \constant( 'DOING_AJAX' )
 		|| ! isset( $_REQUEST['action'] )         // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
 		|| 'crop-image' !== $_REQUEST['action']   // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
 		|| ! isset( $_REQUEST['context'] )        // phpcs:ignore HM.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
@@ -118,7 +118,7 @@ function wp_ajax_upload_attachment() : void {
  *
  * @return array<string, string>
  */
-function no_webp_for_siteicons( array $options ) : array {
+function no_webp_for_siteicons( array $options ): array {
 	$options['modern_image_output_format_for_png'] = '';
 	return $options;
 }
@@ -128,6 +128,6 @@ function no_webp_for_siteicons( array $options ) : array {
  *
  * @return void
  */
-function remove_menu() : void {
+function remove_menu(): void {
 	remove_submenu_page( 'options-general.php', BASENAME );
 }
