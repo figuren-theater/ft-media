@@ -19,7 +19,7 @@ use WP_Filesystem_Direct;
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 	add_filter( 'wp_handle_sideload_prefilter', __NAMESPACE__ . '\\compress' );
 	add_filter( 'wp_handle_upload_prefilter', __NAMESPACE__ . '\\compress' );
 }
@@ -49,7 +49,7 @@ function bootstrap() :void {
  *
  * @return array<string, int|string>
  */
-function compress( array $file ) : array {
+function compress( array $file ): array {
 	if ( isset( $file['error'] ) && 0 !== $file['error'] ) {
 		return $file;
 	}
@@ -79,7 +79,7 @@ function compress( array $file ) : array {
  *
  * @return int|false The function returns the number of bytes that were written to the file, or false on failure.
  */
-function replace( string $path ) : int|false {
+function replace( string $path ): int|false {
 
 	// Compress image.
 	$compressed_raw = optimize( $path );
@@ -98,7 +98,6 @@ function replace( string $path ) : int|false {
 		$path,
 		$compressed_raw
 	);
-
 }
 
 /**
@@ -114,7 +113,7 @@ function replace( string $path ) : int|false {
  *
  * @return string Raw image result from the process
  */
-function optimize( string $file_path ) : string {
+function optimize( string $file_path ): string {
 
 	// Get ImageMagic information, if available.
 	if ( ! class_exists( 'Imagick' ) ) {
@@ -123,8 +122,12 @@ function optimize( string $file_path ) : string {
 	// Compress image.
 	$imagick = new Imagick();
 	// Initializes and connects the WordPress Filesystem Abstraction classes.
+	if ( ! \class_exists( 'WP_Filesystem_Direct' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+	}
 	$filesystem = new WP_Filesystem_Direct( true );
-	$raw_image = $filesystem->get_contents( $file_path );
+	$raw_image  = $filesystem->get_contents( $file_path );
 
 	if ( ! is_string( $raw_image ) ) {
 		return '';
@@ -134,8 +137,8 @@ function optimize( string $file_path ) : string {
 	$imagick->stripImage();
 
 	// Define image.
-	$width      = $imagick->getImageWidth();
-	$height     = $imagick->getImageHeight();
+	$width  = $imagick->getImageWidth();
+	$height = $imagick->getImageHeight();
 
 	// Compress image.
 	$imagick->setImageCompressionQuality( 85 );
