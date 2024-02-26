@@ -22,7 +22,7 @@ const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 0 );
 }
@@ -32,7 +32,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function load_plugin() :void {
+function load_plugin(): void {
 
 	if ( ! is_admin() || is_network_admin() || is_user_admin() ) {
 		return;

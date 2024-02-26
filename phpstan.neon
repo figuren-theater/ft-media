@@ -17,3 +17,9 @@ parameters:
     ignoreErrors:
         # Find a nicer way instead of ignoring this Error on every ft-module
         - '#Function Altis\\register_module not found\.#'
+
+    dynamicConstantNames:
+        # allow constants to have different values in different environments or than is coming from a PHPDoc.
+        # to prevent errors like: "Right side of && is always false."
+        # @see https://phpstan.org/config-reference#constants
+        - DOING_AJAX

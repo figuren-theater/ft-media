@@ -24,7 +24,7 @@ const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 
@@ -36,7 +36,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function load_plugin() :void {
+function load_plugin(): void {
 
 	// Do only load in "normal" admin view
 	// Not for:
@@ -64,7 +64,7 @@ function load_plugin() :void {
  *
  * @return void
  */
-function filter_options() :void {
+function filter_options(): void {
 
 	$_options = [
 		'chk_hyphen'             => '1',

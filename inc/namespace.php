@@ -16,7 +16,7 @@ use function is_admin;
  *
  * @return void
  */
-function register() :void {
+function register(): void {
 
 	$default_settings = [
 		'enabled' => is_admin(), // Needs to be set.
@@ -40,7 +40,7 @@ function register() :void {
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	// Plugins.
 	Attachment_Taxonomies\bootstrap();
