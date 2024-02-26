@@ -34,7 +34,7 @@
 		"figuren-theater/ft-options": "*",
 		"wpackagist-plugin/attachment-taxonomies": "1.2.1",
 		"wpackagist-plugin/format-media-titles": "1.0.0",
-		"wpackagist-plugin/modern-images-wp": "1.1.0"
+		"wpackagist-plugin/modern-images-wp": "1.2.0"
 	},
 	"require-dev": {
 		"figuren-theater/code-quality": "*"
