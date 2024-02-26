@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e2e47414ded59ad4db317fe1f92d867",
+    "content-hash": "5fc72cd31058bf08ef507268b0e07da6",
     "packages": [
         {
             "name": "composer/installers",
@@ -293,15 +293,15 @@
         },
         {
             "name": "wpackagist-plugin/modern-images-wp",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/modern-images-wp/",
-                "reference": "tags/1.1.0"
+                "reference": "tags/1.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/modern-images-wp.1.1.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/modern-images-wp.1.2.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
