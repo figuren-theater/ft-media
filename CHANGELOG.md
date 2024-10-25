@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-media/compare/1.3.0...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-media/compare/1.3.1...HEAD)
+
+## [1.3.1](https://github.com/figuren-theater/ft-media/compare/1.3.0...1.3.1) - 2024-10-25
+
+### Dependency Updates & Maintenance
+
+- Bump figuren-theater/code-quality from 1.1.1 to 1.2.1 ([#23](https://github.com/figuren-theater/ft-media/pull/23))
 
 ## [1.3.0](https://github.com/figuren-theater/ft-media/compare/1.2.0...1.3.0) - 2024-02-26
 
